@@ -76,6 +76,10 @@
     "deposit alternative fee": "Varies"
   };
 
+  var CATEGORY_OVERRIDES = {
+    "security deposit": "applicant"
+  };
+
   var FONT_URL = "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap";
   var DASH  = String.fromCharCode(8212);
   var NDASH = String.fromCharCode(8211);
@@ -157,7 +161,9 @@
     return "Optional";
   }
 
-  function getCategory(item) {
+    function getCategory(item) {
+    var lk = String(item.label || "").trim().toLowerCase();
+    if (Object.prototype.hasOwnProperty.call(CATEGORY_OVERRIDES, lk)) return CATEGORY_OVERRIDES[lk];
     if (item.is_situational) return "situational";
     if (item.due_at_timing === "application") return "applicant";
     if (item.is_required) return "essentials";
